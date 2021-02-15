@@ -1,7 +1,8 @@
 import random
+from playsound import playsound
 
 randomNum = random.randint(1,100)
-print(randomNum)
+# print(randomNum)
 userGuess = None
 guesses = 0
 
@@ -12,11 +13,14 @@ while(randomNum != userGuess):
     guesses += 1
     if userGuess == randomNum:
         print(f"You guessed right in {guesses} tries, Congrats {userName}")
+        playsound('positive.mp3')
     else:
         if userGuess > randomNum:
             print(f"Your guess is too high, try lower number")
+            playsound('negative.mp3')
         elif userGuess < randomNum:
             print(f"Your guess is too low, try higher number")
+            playsound('negative.mp3')
         
 
 with open('highscore.txt', 'r') as hs:
@@ -24,5 +28,7 @@ with open('highscore.txt', 'r') as hs:
 
 if guesses < hScore:
     with open('highscore.txt', 'w') as hs:
-        hs.write(f'{userName} guessed in {guesses} tries')
+            hs.write(str(guesses))
+            print(f"Congrats {guesses} is a new High Score!!!")
+            playsound('wow.mp3')
 
